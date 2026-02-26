@@ -1,0 +1,224 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+  <title>Bounty Bytes</title>
+  <style>
+    .back-button {
+      position: absolute;   /* Anchors it relative to the page */
+      top: 3px;            /* Distance from the top */
+      left: 20px;           /* Distance from the left */
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button" onclick="goBack()">⬅ Back</button>
+
+  
+  
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bounty Byte</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    h1 {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 52px;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+    .wheel-container {
+      position: relative;
+      width: 320px;
+      height: 320px;
+    }
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 8px solid #2c3e50;
+      position: relative;
+      overflow: hidden;
+      transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+    .segment {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      transform-origin: 100% 100%;
+      clip-path: polygon(0 0, 100% 0, 100% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+    }
+    .segment:nth-child(1) { transform: rotate(0deg); background: #e74c3c; }
+    .segment:nth-child(2) { transform: rotate(45deg); background: #3498db; }
+    .segment:nth-child(3) { transform: rotate(90deg); background: #2ecc71; }
+    .segment:nth-child(4) { transform: rotate(135deg); background: #9b59b6; }
+    .segment:nth-child(5) { transform: rotate(180deg); background: #f1c40f; color:#2c3e50; }
+    .segment:nth-child(6) { transform: rotate(225deg); background: #e67e22; }
+    .segment:nth-child(7) { transform: rotate(270deg); background: #1abc9c; }
+    .segment:nth-child(8) { transform: rotate(315deg); background: #ff69b4; }
+    .pointer {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid #2c3e50;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: bold;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      top: -10px;
+      animation: fall 3s linear forwards;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Win a Prize</h1>
+  <div class="wheel-container">
+    <div class="wheel" id="wheel">
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+    </div>
+    <div class="pointer"></div>
+  </div>
+  <button onclick="spinWheel()">Spin</button>
+  <div id="result"></div>
+
+  <!-- Drum roll and cheer sounds -->
+  <audio id="drumRoll" src="https://www.soundjay.com/button/sounds/drum-roll-1.mp3"></audio>
+  <audio id="cheerSound" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
+
+  <script>
+    let spinning = false;
+    function spinWheel() {
+      if (spinning) return;
+      spinning = true;
+      const wheel = document.getElementById("wheel");
+      const drumRoll = document.getElementById("drumRoll");
+      const cheer = document.getElementById("cheerSound");
+
+      // Play drum roll while spinning
+      drumRoll.currentTime = 0;
+      drumRoll.play();
+
+      const randomDegree = Math.floor(Math.random() * 360) + 1800; // spin multiple times
+      wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+      setTimeout(() => {
+        spinning = false;
+        drumRoll.pause(); // stop drum roll
+        const actualDegree = randomDegree % 360;
+        const segment = Math.floor(actualDegree / 45);
+        const prizes = ["Prize 1", "Prize 2", "Prize 3", "Prize 4", "Prize 5", "Prize 6", "Prize 7", "Prize 8"];
+        const resultText = "You won: " + prizes[segment];
+        document.getElementById("result").innerText = resultText;
+        launchConfetti();
+        cheer.currentTime = 0;
+        cheer.play(); // play cheer sound
+      }, 4000);
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.backgroundColor = randomColor();
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+
+    function randomColor() {
+      const colors = ["#e74c3c","#3498db","#2ecc71","#f1c40f","#9b59b6","#e67e22","#1abc9c","#ff69b4"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
+</body>
+</html>

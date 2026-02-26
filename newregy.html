@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Betting Game Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdf6e3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .form-container, .loading, .confirmation {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+      display: none;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #e74c3c;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #2ecc71;
+      color: #fff;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #27ae60;
+    }
+    .progress-bar {
+      width: 100%;
+      background: #eee;
+      border-radius: 8px;
+      margin-top: 20px;
+      height: 20px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      width: 0;
+      background: #3498db;
+      animation: load 3s forwards;
+    }
+    @keyframes load {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+      box-shadow: 0 0 0 4px #2ecc71 inset;
+      margin-bottom: 20px;
+    }
+    .checkmark::after {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 40px;
+      width: 20px;
+      height: 40px;
+      border-right: 4px solid #2ecc71;
+      border-bottom: 4px solid #2ecc71;
+      transform: rotate(45deg);
+      animation: draw 1s ease forwards;
+      opacity: 0;
+    }
+    @keyframes draw {
+      to { opacity: 1; }
+    }
+    .confirmation {
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+    .confirmation.show {
+      opacity: 1;
+    }
+    .back-button {
+      background: #3498db;
+      margin-top: 15px;
+    }
+    .back-button:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container" id="formContainer">
+    <h2>Register for Betting Game</h2>
+    <form id="registrationForm">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" required>
+
+      <label for="secondName">Second Name</label>
+      <input type="text" id="secondName" name="secondName" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,}">
+
+      <label for="email">Email (Optional)</label>
+      <input type="email" id="email" name="email">
+
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Password (min 6 characters)</label>
+      <input type="password" id="password" name="password" required minlength="6">
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <div class="loading" id="loadingScreen">
+    <h2>Creating Account...</h2>
+    <div class="progress-bar">
+      <div class="progress"></div>
+    </div>
+  </div>
+
+  <div class="confirmation" id="confirmationScreen">
+    <div class="checkmark"></div>
+    <h2>Account Created Successfully 🎉</h2>
+    <p id="userDetails"></p>
+    <button class="back-button" onclick="goHome()">Back to Home</button>
+  </div>
+
+  <script>
+    const formContainer = document.getElementById("formContainer");
+    const loadingScreen = document.getElementById("loadingScreen");
+    const confirmationScreen = document.getElementById("confirmationScreen");
+    const userDetails = document.getElementById("userDetails");
+
+    // Show form initially
+    formContainer.style.display = "block";
+
+    document.getElementById("registrationForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Get form values
+      const firstName = document.getElementById("firstName").value;
+      const secondName = document.getElementById("secondName").value;
+      const phone = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+      const username = document.getElementById("username").value;
+
+      // Hide form and show loading
+      formContainer.style.display = "none";
+      loadingScreen.style.display = "block";
+
+      // Simulate loading delay
+      setTimeout(() => {
+        loadingScreen.style.display = "none";
+        confirmationScreen.style.display = "block";
+
+        // Trigger fade-in effect
+        setTimeout(() => {
+          confirmationScreen.classList.add("show");
+        }, 50);
+
+        // Show user details (excluding password)
+        userDetails.innerHTML = `
+          <strong>Name:</strong> ${firstName} ${secondName}<br>
+          <strong>Phone:</strong> ${phone}<br>
+          <strong>Email:</strong> ${email ? email : "Not provided"}<br>
+          <strong>Username:</strong> ${username}
+        `;
+      }, 3000); // 3 second loading
+    });
+
+    function goHome() {
+      // Reset back to form
+      confirmationScreen.style.display = "none";
+      confirmationScreen.classList.remove("show");
+      formContainer.style.display = "block";
+      document.getElementById("registrationForm").reset();
+    }
+  </script>
+</body>
+</html>

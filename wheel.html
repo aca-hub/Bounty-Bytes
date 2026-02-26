@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8">
+  <title>Bounty Bytes</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 48px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    }
+    h2 {
+      color: #34495e;
+      margin-top: 30px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 500;
+      color: #34495e;
+    }
+    select, input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 14px;
+      width: 100%;
+      font-size: 18px;
+      font-weight: bold;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    ol {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin: 15px 0;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #34495e;
+    }
+    .note {
+      background: #f0f9ff;
+      border-left: 4px solid #3498db;
+      padding: 10px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #2c3e50;
+    }
+    #confirmation {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #27ae60;
+      display: none;
+    }
+    #playButton {
+      display: none;
+      margin-top: 20px;
+      background: #2ecc71;
+    }
+    #playButton:hover {
+      background: #27ae60;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Deposit to Spin the Wheel</h1>
+
+    <h2>Choose Deposit Amount</h2>
+    <form id="depositForm">
+      <label for="amount">Select Amount:</label>
+      <select id="amount" required>
+        <option value="">-- Choose an amount --</option>
+        <option value="50">KES 50</option>
+        <option value="100">KES 100</option>
+        <option value="200">KES 200</option>
+        <option value="500">KES 500</option>
+      </select>
+
+      
+      <button type="submit">Confirm Deposit</button>
+    </form>
+
+    <div id="confirmation"></div>
+    <a href="wheel.html"><button id="playButton">Proceed to Spin the Wheel</button></a>
+
+    <h2>How to Send Money via M-Pesa Paybill</h2>
+    <p>Follow these steps to deposit money into the game account:</p>
+    <ol>
+      <li>Open the <strong>M-Pesa app</strong> on your phone.</li>
+      <li>Select <strong>Paybill</strong> from the menu.</li>
+      <li>Enter the <strong>Business Number</strong>: <strong>522522</strong> </li>
+      <li>Enter the <strong>Account Number</strong>: <strong>5173 3520 1317 5471 </strong></li>
+      <li>Enter the <strong>Amount</strong> you selected above.</li>
+      <li>Confirm all details are correct, then tap <strong>Send</strong>.</li>
+      <li>You will receive a confirmation SMS from M-Pesa once the transaction is successful.</li>
+      <h4>After succesfull payment you will be re directed to the wheel.</h4>
+    </ol>
+    <div class="note">
+      <strong>Note:</strong> Always double-check the business number and account number before sending money to avoid errors.
+    
+    
+    </div>
+    <a href="sorry.html">Paid and have not</a> been redirected to the wheel?
+  </div>
+
+  <script>
+    const form = document.getElementById("depositForm");
+    const confirmation = document.getElementById("confirmation");
+    const playButton = document.getElementById("playButton");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const amount = document.getElementById("amount").value;
+      const phone = document.getElementById("phone").value;
+
+      if (amount && phone) {
+        confirmation.style.display = "block";
+        confirmation.innerText = `You chose to deposit KES ${amount}. Please send this amount via M-Pesa Paybill to Business Number 123456 using your phone number ${phone} as the account number.`;
+        playButton.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>

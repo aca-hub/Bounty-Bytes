@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bounty Byte Welcome</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('at.Webp') no-repeat center center fixed; /* Replace with your image */
+      background-size: cover;
+      color: #fff;
+    }
+
+    h1 {
+      font-family: 'Brush Script MT', cursive; /* Handwriting style */
+      font-size: 60px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 22px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+    }
+
+    .countdown {
+      font-size: 50px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #ffcc70;
+      text-shadow: 0 0 12px rgba(255, 204, 112, 0.9);
+    }
+
+    .progress-container {
+      width: 60%;
+      background: rgba(255,255,255,0.3);
+      border-radius: 20px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 20px;
+      width: 0%;
+      background: linear-gradient(135deg, #ff6f61, #ffcc70);
+      border-radius: 20px;
+      transition: width 1s linear;
+    }
+  </style>
+  <script>
+    let timeLeft = 3;
+    function updateCountdown() {
+      document.getElementById("countdown").textContent = timeLeft;
+      document.getElementById("progress").style.width = ((3 - timeLeft) / 3 * 100) + "%";
+      timeLeft--;
+      if (timeLeft < 0) {
+        window.location.href = "regester.html"; // Replace with your target page
+      } else {
+        setTimeout(updateCountdown, 1000);
+      }
+    }
+    window.onload = updateCountdown;
+  </script>
+</head>
+<body>
+  <h1>Welcome to Bounty Byte</h1>
+  <p>You will be redirected shortly...</p>
+  <div class="countdown" id="countdown">3</div>
+  <div class="progress-container">
+    <div class="progress-bar" id="progress"></div>
+  </div>
+</body>
+</html>

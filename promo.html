@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8">
+  <title>Bounty Byte</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      text-align: center;
+      margin-top: 80px;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: #222;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .code-inputs {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .code-inputs input {
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      text-align: center;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      outline: none;
+      background: rgba(255,255,255,0.8);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    }
+
+    .code-inputs input:focus {
+      border-color: #ff6f61;
+      box-shadow: 0 0 12px rgba(255, 111, 97, 0.8);
+      transform: scale(1.1);
+    }
+
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin-top: 25px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ff6f61, #ffcc70);
+      color: #fff;
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(255, 111, 97, 0.8);
+    }
+
+    .share-message {
+      margin-top: 50px;
+      font-size: 20px;
+      color: #fff;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>Enter the Promo Code</h1>
+  
+  <div class="code-inputs">
+    <input type="text" maxlength="1" id="digit1" oninput="moveNext(this, 'digit2')" onkeypress="return onlyNumber(event)">
+    <input type="text" maxlength="1" id="digit2" oninput="moveNext(this, 'digit3')" onkeydown="moveBack(event, 'digit1')" onkeypress="return onlyNumber(event)">
+    <input type="text" maxlength="1" id="digit3" oninput="moveNext(this, 'digit4')" onkeydown="moveBack(event, 'digit2')" onkeypress="return onlyNumber(event)">
+    <input type="text" maxlength="1" id="digit4" onkeydown="moveBack(event, 'digit3')" onkeypress="return onlyNumber(event)">
+  </div>
+  
+  <button onclick="checkCode()">Submit</button>
+  
+  <div class="share-message">
+    🌟 Share this link with your friend and tell them to use your promo code <strong>5556</strong> to unlock new features of <strong>Bounty Bytes</strong>! 🌟
+  </div>
+  
+  <script>
+    function moveNext(current, nextId) {
+      if (current.value.length === 1) {
+        document.getElementById(nextId).focus();
+      }
+    }
+    function moveBack(event, prevId) {
+      if (event.key === "Backspace" && event.target.value === "") {
+        document.getElementById(prevId).focus();
+      }
+    }
+    function onlyNumber(event) {
+      const charCode = event.charCode;
+      // Allow only digits (0-9)
+      if (charCode < 48 || charCode > 57) {
+        event.preventDefault();
+        return false;
+      }
+      return true;
+    }
+    function checkCode() {
+      const d1 = document.getElementById("digit1").value;
+      const d2 = document.getElementById("digit2").value;
+      const d3 = document.getElementById("digit3").value;
+      const d4 = document.getElementById("digit4").value;
+      const code = d1 + d2 + d3 + d4;
+      
+      // Check if it's exactly 4 digits
+      const isValid = /^\d{4}$/.test(code);
+      if (isValid) {
+        window.location.href = "mode.html"; // Replace with your homepage URL
+      } else {
+        alert("Please enter a valid 4-digit promo code.");
+      }
+    }
+  </script>
+</body>
+</html>

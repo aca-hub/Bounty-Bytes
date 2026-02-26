@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8">
+  <title>Betting Game Mode Selection</title>
+  <!-- Import a handwriting-style font -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #fdf6e3;
+      font-family: 'Pacifico', cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      font-size: 60px;
+      color: #e74c3c;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      margin-bottom: 40px;
+    }
+    .button-container {
+      display: flex;
+      gap: 40px;
+    }
+    button {
+      font-family: 'Pacifico', cursive;
+      font-size: 28px;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .custom {
+      background: #3498db;
+      color: #fff;
+    }
+    .promo {
+      background: #2ecc71;
+      color: #fff;
+    }
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>Choose Your Game Mode</h1>
+  <div class="button-container">
+    <button class="custom" onclick="selectMode('home.html')">Custom Mode</button>
+    <button class="promo" onclick="selectMode('pay.html')">Promo Mode</button>
+  </div>
+
+  <script>
+    function selectMode(page) {
+      // Redirect to the chosen page
+      window.location.href = page;
+    }
+  </script>
+</body>
+</html>
